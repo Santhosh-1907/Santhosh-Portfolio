@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper:#0E0618; --color-ink:#EDE6F7;
+  --color-accent:#AA74FF; --color-accent2:#F05BD9;
+  --shadow-soft:0 10px 35px -10px rgba(170,116,255,.45);
+  --shadow-glow:0 0 0 6px rgba(170,116,255,.15);
+  --background-image-hero-radial:
+    radial-gradient(1000px 500px at 70% 10%, rgba(170,116,255,.45), transparent 70%),
+    radial-gradient(800px 400px at 10% 80%, rgba(240,91,217,.35), transparent 70%);
+}
+
+/* make these real utilities */
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+
+@utility container-grid { @apply max-w-6xl mx-auto px-6; }
+@utility glass { @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-soft; }
+
+@utility btn {
+  @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5
+         text-sm font-semibold transition;
+}
+@utility btn-primary {
+  /* don’t @apply btn; v4 won’t allow it — repeat utilities */
+  @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5
+         text-sm font-semibold transition bg-accent hover:bg-accent/90
+         text-white shadow-soft;
+}
+@utility btn-ghost {
+  @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5
+         text-sm font-semibold transition border border-white/15
+         bg-white/5 hover:bg-white/10 text-white;
+}
+@utility badge {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/15
+         bg-white/5 px-3 py-1 text-xs text-white/80;
+}
+
+
+/* ===== Animations (Tailwind v4) ===== */
+@keyframes reveal-up {
+  0% { opacity: 0; transform: translateY(16px) scale(.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glow {
+  0%,100% { box-shadow: 0 10px 35px -10px rgba(170,116,255,.35); opacity: .9; }
+  50% { box-shadow: 0 24px 60px -16px rgba(240,91,217,.45); opacity: 1; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* drifting “shine” orb */
+@keyframes orb {
+  0%   { transform: translate(-20%, -20%) scale(1);   opacity: .25; }
+  50%  { transform: translate(40%,  20%) scale(1.2);  opacity: .35; }
+  100% { transform: translate(-20%, -20%) scale(1);   opacity: .25; }
+}
+
+/* delays */
+@utility delay-200 { animation-delay: .2s; }
+@utility delay-400 { animation-delay: .4s; }
+@utility delay-600 { animation-delay: .6s; }
+
+/* animation utilities */
+@utility animate-reveal-up { animation: reveal-up .7s cubic-bezier(.22,1,.36,1) both; }
+@utility animate-float     { animation: float 6s ease-in-out infinite; }
+@utility animate-glow      { animation: glow 3.4s ease-in-out infinite; }
+@utility animate-gradient  { animation: gradient-shift 8s linear infinite; background-size: 200% 200%; }
+@utility animate-orb       { animation: orb 12s ease-in-out infinite; }
+
+/* nicer button hover ring */
+@utility ring-glow { @apply ring-1 ring-white/10 hover:ring-white/20 transition; }
+
+
+/* ===== Name typewriter + caret ===== */
+@keyframes typing {
+  from { max-width: 0 }
+  to   { max-width: 100% }
+}
+@keyframes caret {
+  50% { border-color: transparent }
+}
+
+/* Single utility that does the typewriter w/ blinking caret */
+@utility animate-typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid currentColor;
+  /* steps(#) controls the “ticks”; works fine even if > characters */
+  animation: typing 2.2s steps(30, end) .2s both, caret 1s step-end infinite;
+}
+
+/* Role shimmer already if you added earlier; if not, include: */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+@utility animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s linear infinite;
+}
+
+/* Nice reveal (optional if you already have it) */
+@keyframes reveal-up {
+  0% { opacity: 0; transform: translateY(16px) scale(.98) }
+  100% { opacity: 1; transform: translateY(0) scale(1) }
+}
+@utility animate-reveal-up { animation: reveal-up .7s cubic-bezier(.22,1,.36,1) both }
+
+
+@utility delay-200 { animation-delay: .2s; }
+@utility delay-400 { animation-delay: .4s; }
+@utility animate-reveal-up { animation: reveal-up .7s cubic-bezier(.22,1,.36,1) both; }
+@utility animate-gradient  { background-size: 200% 200%; animation: gradient-shift 8s linear infinite; }
+/* and the keyframes: reveal-up + gradient-shift already in your file */
+
+/* === Navbar shine + link underline + reveal === */
+@keyframes nav-shine {
+  0%   { transform: translateX(-120%); opacity: 0; }
+  20%  { opacity: .25; }
+  50%  { opacity: .35; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+@utility animate-nav-shine {
+  animation: nav-shine 3.5s ease-in-out infinite;
+}
+
+@keyframes reveal-down {
+  0% { opacity: 0; transform: translateY(-12px) scale(.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@utility animate-reveal-down {
+  animation: reveal-down .6s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* subtle gradient border under the navbar */
+@utility nav-gradient-underline {
+  background-image: linear-gradient(to right, var(--color-accent), var(--color-accent2));
+  height: 1px; opacity: .4;
+}
+
+/* link underline that animates on hover */
+/* ✅ v4-safe underline utility */
+@utility link-underline {
+  position: relative;
+}
+
+/* Put pseudo selectors in a layer, not in @utility */
+@layer utilities {
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 12px; right: 12px; bottom: 6px;
+    height: 2px; border-radius: 9999px;
+    background-image: linear-gradient(to right, var(--color-accent), var(--color-accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .25s ease;
+    opacity: .7;
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+
+/* delays */
+@utility delay-200 { animation-delay: .2s; }
+@utility delay-400 { animation-delay: .4s; }
+
+/* reveal */
+@keyframes reveal-up { 0%{opacity:0;transform:translateY(16px) scale(.98)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+@utility animate-reveal-up { animation: reveal-up .7s cubic-bezier(.22,1,.36,1) both; }
+
+/* shine sweep for cards/nav */
+@keyframes nav-shine { 0%{transform:translateX(-120%);opacity:0} 20%{opacity:.25} 50%{opacity:.35} 100%{transform:translateX(120%);opacity:0} }
+@utility animate-nav-shine { animation: nav-shine 3.5s ease-in-out infinite; }
+
+/* button/card ring */
+@utility ring-glow { @apply ring-1 ring-white/10 hover:ring-white/20 transition; }
+
+
+/* delays */
+@utility delay-200 { animation-delay: .2s; }
+@utility delay-400 { animation-delay: .4s; }
+
+/* reveal */
+@keyframes reveal-up { 0%{opacity:0;transform:translateY(16px) scale(.98)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+@utility animate-reveal-up { animation: reveal-up .7s cubic-bezier(.22,1,.36,1) both; }
+
+/* shine sweep */
+@keyframes nav-shine { 0%{transform:translateX(-120%);opacity:0} 20%{opacity:.25} 50%{opacity:.35} 100%{transform:translateX(120%);opacity:0} }
+@utility animate-nav-shine { animation: nav-shine 3.5s ease-in-out infinite; }
+
+/* glow ring (optional) */
+@utility shadow-glow { box-shadow: 0 0 0 6px rgba(170,116,255,.15); }
+
+@layer utilities {
+  /* 3D hover tilt (uses CSS vars set by JS) */
+  .tilt {
+    transform: perspective(800px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateZ(0);
+    transition: transform .2s ease, box-shadow .2s ease;
+    will-change: transform;
+  }
+  .tilt:hover { transform: perspective(800px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateZ(6px); }
+}
+
