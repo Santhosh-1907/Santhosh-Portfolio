@@ -2,10 +2,11 @@ import React from "react";
 import SectionHeading from "./SectionHeading";
 
 const reviews = [
-  { name: "Nadia K.", role: "PM, NovaPay", text: "Sara elevated our checkout UX. Conversion up 18%." },
-  { name: "Ken L.", role: "Founder, StudyFlow", text: "Fast, thoughtful, and great with user testing." },
-  { name: "Priya R.", role: "Lead Dev, FinCrate", text: "Design system specs were crystal clear." },
+  { name: "Sathish", role: "YaCart", text: "Rebuilt our website with clean UX—loads 2x faster and drives more product views." },
+  { name: "Kalki", role: "Vel InfoTech", text: "Modern, responsive website with solid SEO—organic traffic is climbing already." },
+  { name: "Praveen", role: "YawayTech Portal", text: "Clear design system and pages that feel polished across mobile and desktop." },
 ];
+
 
 export default function Reviews() {
   const delays = ["", "delay-200", "delay-400"]; // stagger like other sections
